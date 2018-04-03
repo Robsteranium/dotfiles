@@ -105,14 +105,14 @@
 (setq nrepl-hide-special-buffers t)
 (setq cider-cljs-lein-repl "(do (use 'figwheel-sidecar.repl-api) (start-figwheel!) (cljs-repl))")
 
-;; clj-refactor https://github.com/clojure-emacs/clj-refactor.el
-(require 'clj-refactor)
-(defun my-clojure-mode-hook ()
-    (clj-refactor-mode 1)
-    (yas-minor-mode 1) ; for adding require/use/import statements
+;;clj-refactor https://github.com/clojure-emacs/clj-refactor.el
+;;(require 'clj-refactor)
+;;(defun my-clojure-mode-hook ()
+;;    (clj-refactor-mode 1)
+;;    (yas-minor-mode 1) ; for adding require/use/import statements
     ;; This choice of keybinding leaves cider-macroexpand-1 unbound
-    (cljr-add-keybindings-with-prefix "C-c C-m"))
-(add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
+;;    (cljr-add-keybindings-with-prefix "C-c C-m"))
+;;(add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
 
 ;; IPython `C-c !` to start `C-c |` to execute region 
