@@ -46,7 +46,8 @@
 		      rspec-mode
 		      alchemist
 		      flycheck
-		      flycheck-rust))
+		      flycheck-rust
+		      which-key))
  
 (dolist (p my-packages)
   (unless (package-installed-p p)
@@ -70,6 +71,8 @@
 ;; This is your old M-x.
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
+(require 'which-key)
+(which-key-mode)
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
@@ -159,6 +162,9 @@
  '(cider-boot-parameters "cider repl -s wait")
  '(custom-enabled-themes (quote (leuven)))
  '(inhibit-startup-screen t)
+ '(package-selected-packages
+   (quote
+    (which-key yaml-mode smex slamhound sass-mode rspec-mode projectile-rails magit ido-vertical-mode helm ein cargo alchemist)))
  '(safe-local-variable-values
    (quote
     ((eval font-lock-add-keywords nil
