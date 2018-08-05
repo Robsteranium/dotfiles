@@ -27,7 +27,8 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-(defvar my-packages '(paredit
+(defvar my-packages '(;paredit
+		      use-package
 		      projectile
 		      projectile-rails
 		      clojure-mode 
@@ -35,7 +36,6 @@
 		      clj-refactor
 		      magit
 		      helm
-		      slamhound
                       rust-mode
 		      cargo
 		      ido-vertical-mode
@@ -53,7 +53,9 @@
   (unless (package-installed-p p)
     (package-install p)))
 
-
+;; use-package
+(eval-when-compile
+  (require 'use-package))
 
 ;; ido/ smex
 (require 'ido)
@@ -89,6 +91,27 @@
 ; sass-mode
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . sass-mode))
 
+; parinfer
+(use-package parinfer
+  :ensure t
+  :bind
+  (("C-," . parinfer-toggle-mode))
+  :init
+  (progn
+    (setq parinfer-extensions
+          '(defaults       ; should be included.
+            pretty-parens  ; different paren styles for different modes.
+            ;evil           ; If you use Evil.
+            ;lispy          ; If you use Lispy. With this extension, you should install Lispy and do not enable lispy-mode directly.
+            paredit        ; Introduce some paredit commands.
+            smart-tab      ; C-b & C-f jump positions and smart shift with tab & S-tab.
+            smart-yank))   ; Yank behavior depend on mode.
+    (add-hook 'clojure-mode-hook #'parinfer-mode)
+    (add-hook 'cider-repl-mode-hook #'parinfer-mode)
+    (add-hook 'emacs-lisp-mode-hook #'parinfer-mode)
+    (add-hook 'common-lisp-mode-hook #'parinfer-mode)
+    (add-hook 'scheme-mode-hook #'parinfer-mode)
+    (add-hook 'lisp-mode-hook #'parinfer-mode)))
 
 ;(require 'smartparens-config)
 ;(show-smartparens-mode 1)
@@ -99,8 +122,8 @@
 (show-paren-mode 1)
 
 ;; cider
-(add-hook 'clojure-mode-hook #'paredit-mode)
-(add-hook 'cider-repl-mode-hook #'paredit-mode)
+;(add-hook 'clojure-mode-hook #'paredit-mode)
+;(add-hook 'cider-repl-mode-hook #'paredit-mode)
 (setq nrepl-log-messages nil)
 (setq nrepl-hide-special-buffers t)
 (setq cider-cljs-lein-repl "(do (use 'figwheel-sidecar.repl-api) (start-figwheel!) (cljs-repl))")
@@ -164,7 +187,7 @@
  '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
-    (which-key yaml-mode smex slamhound sass-mode rspec-mode projectile-rails magit ido-vertical-mode helm ein cargo alchemist)))
+    (cider which-key yaml-mode smex slamhound sass-mode rspec-mode projectile-rails magit ido-vertical-mode helm ein cargo alchemist)))
  '(safe-local-variable-values
    (quote
     ((eval font-lock-add-keywords nil
