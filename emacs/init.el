@@ -47,7 +47,9 @@
 		      alchemist
 		      flycheck
 		      flycheck-rust
-		      which-key))
+		      which-key
+		      haskell-mode))
+
  
 (dolist (p my-packages)
   (unless (package-installed-p p)
